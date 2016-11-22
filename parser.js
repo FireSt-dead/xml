@@ -595,27 +595,33 @@ function peg$parse(input, options) {
   }
 
   function peg$parseName() {
-    var s0, s1, s2, s3;
+    var s0, s1, s2, s3, s4;
 
     s0 = peg$currPos;
-    s1 = peg$parseNameStartChar();
-    if (s1 !== peg$FAILED) {
-      s2 = [];
-      s3 = peg$parseNameChar();
-      while (s3 !== peg$FAILED) {
-        s2.push(s3);
-        s3 = peg$parseNameChar();
+    s1 = peg$currPos;
+    s2 = peg$parseNameStartChar();
+    if (s2 !== peg$FAILED) {
+      s3 = [];
+      s4 = peg$parseNameChar();
+      while (s4 !== peg$FAILED) {
+        s3.push(s4);
+        s4 = peg$parseNameChar();
       }
-      if (s2 !== peg$FAILED) {
-        s1 = [s1, s2];
-        s0 = s1;
+      if (s3 !== peg$FAILED) {
+        s2 = [s2, s3];
+        s1 = s2;
       } else {
-        peg$currPos = s0;
-        s0 = peg$FAILED;
+        peg$currPos = s1;
+        s1 = peg$FAILED;
       }
     } else {
-      peg$currPos = s0;
-      s0 = peg$FAILED;
+      peg$currPos = s1;
+      s1 = peg$FAILED;
+    }
+    if (s1 !== peg$FAILED) {
+      s0 = input.substring(s0, peg$currPos);
+    } else {
+      s0 = s1;
     }
 
     return s0;
@@ -4837,6 +4843,9 @@ function peg$parse(input, options) {
 
     return s0;
   }
+
+
+
 
   peg$result = peg$startRuleFunction();
 

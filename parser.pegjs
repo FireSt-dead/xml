@@ -1,6 +1,6 @@
-// XML 1.1: https://www.w3.org/TR/xml11/#xml-names
-
 // TODO: Probably relief the leading <?xml version='1.1'?> requirement
+{
+}
 
 // 1. TODO: Omitted "- (Char* RestrictedChar Char*)"
 document = prolog element Misc*
@@ -23,7 +23,7 @@ NameStartChar = [:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\u0370-\u037D\u0
 // 4a.
 NameChar = NameStartChar / [-\.0-9\u00B7\u0300-\u036F\u203F-\u2040]
 // 5.
-Name = NameStartChar NameChar*
+Name = $(NameStartChar NameChar*)
 // 6.
 Names = Name ([\u0020] Name)*
 // 7.
@@ -86,13 +86,13 @@ element = EmptyElemTag / STag content ETag
 // 40.
 STag = '<' Name (S Attribute)* S? '>'
 // 41.
-Attribute = Name Eq AttValue
+Attribute = name:Name eq:Eq value:AttValue 
 // 42.
 ETag = '</' Name S? '>'
 // 43.
 content = CharData? ((element / Reference / CDSect / PI / Comment) CharData?)*
 // 44.
-EmptyElemTag = '<' Name (S Attribute)* S? '/>'
+EmptyElemTag = '<' name:Name attributes:(S Attribute)* S? '/>'
 // 45.
 elementdecl = '<!ELEMENT' S Name S contentspec S? '>'
 // 46.
